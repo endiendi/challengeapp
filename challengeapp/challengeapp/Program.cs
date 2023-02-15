@@ -1,10 +1,10 @@
 ﻿string strName = "Ewa";
 int intAge = 33;
-bool bolGender = true;
+bool bolWoman = true;
 
 
 
-if (bolGender == true)
+if (bolWoman == true)
 {
     if (intAge < 30)
     {
