@@ -1,5 +1,5 @@
 ﻿string strName = "Ewa";
-int intAge = 33;
+int intAge = 34;
 bool bolWoman = true;
 
 
@@ -17,7 +17,7 @@ if (bolWoman == true)
             Console.WriteLine("Ewa, lat 33");
         }
         else
-            Console.WriteLine("Kobieta w wieku " + intAge);
+            Console.WriteLine("Kobieta w wieku " + intAge + " lat");
     }
 }
 else
@@ -28,7 +28,7 @@ else
     }
     else
     {
-        Console.WriteLine("Męszczyzna w wieku " + intAge);
+        Console.WriteLine("Męszczyzna w wieku " + intAge + " lat");
     }
 }
 
