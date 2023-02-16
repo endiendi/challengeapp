@@ -1,35 +1,56 @@
-﻿string strName = "Ewa";
-int intAge = 34;
-bool bolWoman = true;
+﻿int number = 4566;
+string numberInString = number.ToString();
+char[] letters = numberInString.ToArray();
+int[] repeatedNumbers = new int[10];
 
 
-
-if (bolWoman == true)
+foreach(char letter in letters)
 {
-    if (intAge < 30)
+    if (letter == '0')
     {
-        Console.WriteLine("Kobieta poniżej 30 lat");
+        repeatedNumbers[0] = repeatedNumbers[0] + 1;
     }
-    else
+    else if (letter == '1')
     {
-        if (strName == "Ewa" && intAge == 33)
-        {
-            Console.WriteLine("Ewa, lat 33");
-        }
-        else
-            Console.WriteLine("Kobieta w wieku " + intAge + " lat");
+        repeatedNumbers[1] = repeatedNumbers[1] + 1;
+    }
+    else if (letter == '2')
+    {
+        repeatedNumbers[2] = repeatedNumbers[2] + 1;
+    }
+    else if (letter == '3')
+    {
+        repeatedNumbers[3] = repeatedNumbers[3] + 1;
+    }
+    else if (letter == '4')
+    {
+        repeatedNumbers[4] = repeatedNumbers[4] + 1;
+    }
+    else if (letter == '5')
+    {
+        repeatedNumbers[5] = repeatedNumbers[5] + 1;
+    }
+    else if (letter == '6')
+    {
+        repeatedNumbers[6] = repeatedNumbers[6] + 1;
+
+    }
+    else if (letter == '7')
+    {
+        repeatedNumbers[7] = repeatedNumbers[7] + 1;
+    }
+    else if (letter == '8')
+    {
+        repeatedNumbers[8] = repeatedNumbers[8] + 1;
+    }
+    else if (letter == '9')
+    {
+        repeatedNumbers[9] = repeatedNumbers[9] + 1;
     }
 }
-else
+Console.WriteLine("Liczba testowana: "+ number);
+
+for (int i = 0; i < 10; i++)
 {
-    if (intAge < 18)
-    {
-        Console.WriteLine("Niepełnoletni męszczyzna");
-    }
-    else
-    {
-        Console.WriteLine("Męszczyzna w wieku " + intAge + " lat");
-    }
+    Console.WriteLine(i+" ==> "+repeatedNumbers[i]);
 }
-
-
