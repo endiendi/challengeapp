@@ -4,7 +4,7 @@ char[] letters = numberInString.ToArray();
 int[] repeatedNumbers = new int[10];
 
 
-foreach(char letter in letters)
+foreach (char letter in letters)
 {
     if (letter == '0')
     {
@@ -33,7 +33,6 @@ foreach(char letter in letters)
     else if (letter == '6')
     {
         repeatedNumbers[6] = repeatedNumbers[6] + 1;
-
     }
     else if (letter == '7')
     {
@@ -48,9 +47,9 @@ foreach(char letter in letters)
         repeatedNumbers[9] = repeatedNumbers[9] + 1;
     }
 }
-Console.WriteLine("Liczba testowana: "+ number);
+Console.WriteLine("Liczba testowana: " + number);
 
 for (int i = 0; i < 10; i++)
 {
-    Console.WriteLine(i+" ==> "+repeatedNumbers[i]);
+    Console.WriteLine(i + " ==> " + repeatedNumbers[i]);
 }
