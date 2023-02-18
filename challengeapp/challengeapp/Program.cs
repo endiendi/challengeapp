@@ -1,16 +1,49 @@
 ﻿using challengeapp;
-User user1 = new User("Adam", "134841");
-User user2 = new User("Monika", "16549841");
-User user3 = new User("Zuzia", "4568218");
-User user4 = new User("Dominik", "456789");
+
+Employee employee1 = new Employee("Monika", "Kowalska", 35);
+Employee employee2 = new Employee("Zuzia", "Makowska", 24);
+Employee employee3 = new Employee("Dominik", "Dzikowski", 43);
+
+employee1.AddScore(1);
+employee1.AddScore(1);
+employee1.AddScore(1);
+employee1.AddScore(1);
+employee1.AddScore(1);
+
+employee2.AddScore(1);
+employee2.AddScore(1);
+employee2.AddScore(1);
+employee2.AddScore(1);
+employee2.AddScore(2);
+
+employee3.AddScore(1);
+employee3.AddScore(1);
+employee3.AddScore(1);
+employee3.AddScore(1);
+employee3.AddScore(3);
+
+var result1 = employee1.Result;
+var result2 = employee2.Result;
+var result3 = employee3.Result;
+
+List<Employee> employees = new List<Employee>()
+    {
+    employee1, employee2, employee3
+    };
 
 
-user1.AddScore(5);
-user1.AddScore(2);
+int maxResult = -1;
+Employee employeeWithMaxResult = null;
 
-var result = user1.Result; //wykonanie metody sumowanie
-Console.WriteLine(result);
-var name = User.GemeName;
-var pi = Math.PI;
-Console.WriteLine(pi);
-
+foreach (var employee in employees)
+{
+ Console.WriteLine(employee.Name + "\t" + employee.Lastname + "\twiek\t"  + employee.Age + "\t" + "Uzyskał wynik\t" + employee.Result);
+   
+    if (employee.Result > maxResult)
+    {
+        maxResult = employee.Result;
+        employeeWithMaxResult = employee;
+    }
+}
+Console.WriteLine("\nNajlepszy wynik uzyskał pracownik:\n");
+Console.WriteLine(employeeWithMaxResult.Name + "\t" + employeeWithMaxResult.Lastname + "\twiek\t" + employeeWithMaxResult.Age + "\t" + "Uzyskał wynik\t" + employeeWithMaxResult.Result);
