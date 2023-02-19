@@ -1,4 +1,5 @@
 namespace challengeapp.tests
+
 {
     public class Tests
     {
