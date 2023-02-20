@@ -1,51 +1,27 @@
 ﻿using challengeapp;
-using System.Reflection;
+using System.Net.NetworkInformation;
 
-Employee employee1 = new Employee("Monika", "Kowalska", 35);
-Employee employee2 = new Employee("Zuzia", "Makowska", 24);
-Employee employee3 = new Employee("Dominik", "Dzikowski", 43);
+var employee = new Employee("Adam", "Kowalski");//, 25);
 
-employee1.AddScore(1);
-employee1.AddScore(1);
-employee1.AddScore(1);
-employee1.AddScore(1);
-employee1.AddScore(1);
+employee.AddGrade(2);
+employee.AddGrade(-2);
+employee.AddGrade(0);
+employee.AddGrade(0);
+employee.AddGrade(6);
 
-employee2.AddScore(1);
-employee2.AddScore(1);
-employee2.AddScore(1);
-employee2.AddScore(1);
-employee2.AddScore(1);
+var statistics = employee.GetStstistics();
+Console.WriteLine($"Average: {statistics.Average:N2}");
+Console.WriteLine($"Max: {statistics.Max}");
+Console.WriteLine($"Min: {statistics.Min}");
 
-employee3.AddScore(1);
-employee3.AddScore(1);
-employee3.AddScore(2);
-employee3.AddScore(1);
-employee3.AddScore(1);
 
-var sameMax = new List<int>();
-List<Employee> employees = new List<Employee>()
-    {
-    employee1, employee2, employee3
-    };
+///* 
+//SetSth(ref statistics); //wywoływanie ze słowem jawnie ref nadpisuje obiekt w pamięci
+SetSth(out statistics);// wymuszenie nadpisanie
+void SetSth(ref Ststistics ststistics) //Przekazane przez wartość referęcje //ref przekazywanie przez referęcje można wtedy nad pisać
 
-int maxResult = -1;
-
-foreach (var employee in employees)
 {
-    Console.WriteLine(employee.Name + "\t" + employee.Lastname + "\twiek\t" + employee.Age + "\t" + "Uzyskał wynik\t" + employee.Result);
-
-    if (employee.Result > maxResult)
-    {
-        maxResult = employee.Result;
-    }
-
+    ststistics = new Ststistics();//jeśli jest out wymusza nadpisanie
+    //ststistics =new Ststistics();//nie można wymazać obiektu wewnątsz
 }
-Console.WriteLine("\nLista pracowników którzy uzyskali najlepszy wynik:\n");
-foreach (var employee in employees)
-    if (employee.Result == maxResult)
-    {
-        maxResult = employee.Result;
-        Console.WriteLine(employee.Name + "\t" + employee.Lastname + "\twiek\t" + employee.Age + "\t" + "Uzyskał wynik\t" + employee.Result);
-
-    }
+//*/
