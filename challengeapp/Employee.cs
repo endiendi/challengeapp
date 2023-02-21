@@ -27,7 +27,7 @@ namespace challengeapp
             }
             else
             {
-                Console.WriteLine($"Punkty poza zakresem, prawidłowy zakres \t{grade},\t zakres to 0-100\n");
+                Console.WriteLine($"Punkty poza zakresem, prawidłowy zakres \t{grade}\t zakres to 0-100\n");
             }
         }
         public void AddGrade(string grade)
@@ -41,10 +41,10 @@ namespace challengeapp
                 Console.WriteLine("Błędna wartość - tekst zamiast cyfry\n");
             }
         }
-        public void AddGrade(int grade)
-        {
-            this.AddGrade((float)grade);
-        }
+        //public void AddGrade(int grade)
+        //{
+        //    this.AddGrade((float)grade);
+        //}
         public void AddGrade(double grade)
         {
             this.AddGrade((float)grade);
@@ -64,13 +64,53 @@ namespace challengeapp
             statistics.Average = 0;
             statistics.Max = float.MinValue;
             statistics.Min = float.MaxValue;
+
+
+            //var index = 0;
+
+            //while (index < this.grades.Count) 
+            //{
+            //    if (this.grades[index] == this.grades.Count)
+            //    {
+            //        break;
+            //    }
+
+            //    statistics.Max = Math.Max(statistics.Max, this.grades[index]);
+            //    statistics.Min = Math.Min(statistics.Min, this.grades[index]);
+            //    statistics.Average += this.grades[index];
+            //    index++;
+            //} 
+
+            //var index = 0;
+
+            //do
+            //{
+            //    statistics.Max = Math.Max(statistics.Max, this.grades[index]);
+            //    statistics.Min = Math.Min(statistics.Min, this.grades[index]);
+            //    statistics.Average += this.grades[index];
+            //    index++;
+            //} while (index<this.grades.Count);
+
+
             //
             foreach (var grade in this.grades)
+
+            //break
+            //continue
+            //goto
             {
+                if (grade < 0) //Jeżeli warunek spełniony to wykonuj to co poniżej
+                {
+                    continue; //Jeżeli warunek spełniony to wykonuj to co poniżej
+
+                }
+
+
                 statistics.Max = Math.Max(statistics.Max, grade);
                 statistics.Min = Math.Min(statistics.Min, grade);
                 statistics.Average += grade;
             }
+        //here:
             statistics.Average /= this.grades.Count;
             return statistics;
         }
