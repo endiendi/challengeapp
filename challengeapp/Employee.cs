@@ -1,4 +1,7 @@
-﻿namespace challengeapp
+﻿using System;
+using System.Diagnostics;
+
+namespace challengeapp
 {
     public class Employee
     {
@@ -18,21 +21,14 @@
 
         public void AddGrade(float grade)
         {
-            //3,33
-            //3
-            //int valueInInt = (int)grade;
-            //int valueInInt = Math.Floor(grade);
-            //var valueInInt = Math.Ceiling(grade);
-
             if (grade >= 0 && grade <= 100)
             {
                 this.grades.Add(grade);
             }
             else
             {
-                Console.WriteLine("Punkty poza zakresem, prawidłowy zakres to 0-100");
+                Console.WriteLine($"Punkty poza zakresem, prawidłowy zakres \t{grade},\t zakres to 0-100\n");
             }
-
         }
         public void AddGrade(string grade)
         {
@@ -42,10 +38,24 @@
             }
             else
             {
-                Console.WriteLine("Błędna wartość - tekst zamiast cyfry");
+                Console.WriteLine("Błędna wartość - tekst zamiast cyfry\n");
             }
-            //var value=float.Parse(grade);
-            //this.grades.Add(value);
+        }
+        public void AddGrade(int grade)
+        {
+            this.AddGrade((float)grade);
+        }
+        public void AddGrade(double grade)
+        {
+            this.AddGrade((float)grade);
+        }
+        public void AddGrade(long grade)
+        {
+            this.AddGrade((float)grade);
+        }
+        public void AddGrade(decimal grade)
+        {
+            this.AddGrade((float)grade);
         }
 
         public Ststistics GetStstistics()
