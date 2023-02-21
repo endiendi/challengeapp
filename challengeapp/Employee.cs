@@ -18,7 +18,34 @@
 
         public void AddGrade(float grade)
         {
-            this.grades.Add(grade);
+            //3,33
+            //3
+            //int valueInInt = (int)grade;
+            //int valueInInt = Math.Floor(grade);
+            //var valueInInt = Math.Ceiling(grade);
+
+            if (grade >= 0 && grade <= 100)
+            {
+                this.grades.Add(grade);
+            }
+            else
+            {
+                Console.WriteLine("Punkty poza zakresem, prawidłowy zakres to 0-100");
+            }
+
+        }
+        public void AddGrade(string grade)
+        {
+            if (float.TryParse(grade, out float result))
+            {
+                this.AddGrade(result);
+            }
+            else
+            {
+                Console.WriteLine("Błędna wartość - tekst zamiast cyfry");
+            }
+            //var value=float.Parse(grade);
+            //this.grades.Add(value);
         }
 
         public Ststistics GetStstistics()
