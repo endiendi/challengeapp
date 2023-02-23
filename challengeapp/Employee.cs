@@ -12,7 +12,6 @@ namespace challengeapp
         {
             this.Name = name;
             this.Surname = surname;
-
         }
 
         public string Name { get; private set; }
@@ -36,7 +35,7 @@ namespace challengeapp
             {
                 this.AddGrade(result);
             }
-            else if (grade == "A"|| grade == "a")
+            else if (grade == "A" || grade == "a")
             {
                 this.AddGrade('A');
             }
@@ -104,14 +103,12 @@ namespace challengeapp
             }
         }
 
-
         public Ststistics GetStstisticsForEch()
         {
             var statistics = new Ststistics();
             statistics.Average = 0;
             statistics.Max = float.MinValue;
             statistics.Min = float.MaxValue;
-
 
             foreach (var grade in this.grades)
             {
@@ -120,8 +117,17 @@ namespace challengeapp
                 statistics.Min = Math.Min(statistics.Min, grade);
                 statistics.Average += grade;
             }
-            statistics.Average /= this.grades.Count;
+            if (this.grades.Count == 0)
+            {
+                statistics.Max = 0;
+                statistics.Min = 0;
+                statistics.Average = 0;
+            }
+            else
+            {
+                statistics.Average /= this.grades.Count;
 
+            }
             switch (statistics.Average)
             {
                 case var average when average >= 100:
