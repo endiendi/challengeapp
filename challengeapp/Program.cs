@@ -1,19 +1,38 @@
 ﻿using challengeapp;
 
 List<string> grades = new List<string>();
-
-Console.WriteLine(
+const string initialMessage =
     "Witamy w Programie XYZ do oceny Pracowników\n" +
     "===========================================\n" +
-    "Zakres punktacji to 0-100 lub\n" +
-    "A-100, B-80, C-60, D-40, E-20\n");
+    "Zakres oceny pracownika to 0-100 lub\n" +
+    "A-100, B-80, C-60, D-40, E-20, F-0\n";
+
+Console.WriteLine(initialMessage);
 
 var employee = new Employee("Adam", "Kowalski");
 
+
+//try  //wyjątek
+//{
+//    Employee emp = null;
+//    var name =emp.Surname;
+//}
+////catch (Exception) //
+////{
+////    Console.WriteLine("Takiej sytuacji nie powinno być");// komunikat wyjątku
+//catch (Exception exception) //ze zmienną komunikatu wyjątku
+//{
+//    Console.WriteLine(exception.Message);// komunikat wyjątku zdefiniowany w plikacz wyjątku
+//}
+//finally
+//{
+//    Console.WriteLine("Fainally here"); //wyświetla komunikat końcowy wyjątku niezależnie czy wystąpi
+//}
+
 while (true)
 {
-    Console.WriteLine("Podaj kolejną ocenę pracownika: ");
-    Console.WriteLine("Wyjścia wciśnij q");
+    Console.WriteLine("Koniec wprowadzania wciśnij q");
+    Console.WriteLine("Podaj ocenę pracownika: ");
 
     var imput = Console.ReadLine();
     Console.Clear();
@@ -21,33 +40,28 @@ while (true)
     grades.Add(imput);
     if (imput == "q" || imput == "Q")
     {
-//        System.Environment.Exit(0); wyjście z aplikacji
+        //        System.Environment.Exit(0); wyjście z aplikacji
         break;
     }
-    Console.WriteLine(
-        "Witamy w Programie XYZ do oceny Pracowników\n" +
-        "===========================================\n" +
-        "Zakres punktacji to 0-100 lub\n" +
-        "A-100, B-80, C-60, D-40, E-20\n");
-
-    foreach (var grade in grades)
+    Console.WriteLine(initialMessage);
+    try
     {
-
-        pointsCollected += ($"{grade},");
+        employee.AddGrade(imput);
     }
-
-    Console.Write($"Zebrane punkty: {pointsCollected}");
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Błąd wyjątku \n{ex.Message}");
+    }
+    
+    var statistics2 = employee.RememberTheCollectedPoints();
+    Console.Write($"Zebrane punkty: {statistics2.PointsCollected}\n");
     Console.WriteLine("");
-    employee.AddGrade(imput);
+
 }
 Console.Clear();
 
 var statistics1 = employee.GetStstisticsForEch();
-Console.WriteLine(
-    "Witamy w Programie XYZ do oceny Pracowników\n" +
-    "===========================================\n" +
-    "Zakres punktacji to 0-100 lub\n" +
-    "A-100, B-80, C-60, D-40, E-20\n");
+Console.WriteLine(initialMessage);
 
 Console.WriteLine($"Average: {statistics1.Average:N2}");
 Console.WriteLine($"Średnia punktacja wyrażona literą - {statistics1.AverageLetter}");

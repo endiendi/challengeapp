@@ -1,10 +1,11 @@
 ﻿
-using System.Diagnostics;
-
 namespace challengeapp
 {
     public class Employee
-    {
+    {   
+        private readonly char sex='M'; //przypisywane tylko w dwuch miejscacj tu i jeszcze w konstruktoże
+        private const char sex1 = 'M';
+
         private List<float> grades = new List<float>();
 
 
@@ -12,6 +13,7 @@ namespace challengeapp
         {
             this.Name = name;
             this.Surname = surname;
+            this.sex = 'K';
         }
 
         public string Name { get; private set; }
@@ -26,7 +28,7 @@ namespace challengeapp
             }
             else
             {
-                Console.WriteLine($"Punkty poza zakresem, prawidłowy zakres \t{grade}\t zakres to 0-100\n");
+                throw new Exception($"Punkty poza zakresem, prawidłowy zakres to 0-100\n");
             }
         }
         public void AddGrade(string grade)
@@ -51,13 +53,17 @@ namespace challengeapp
             {
                 this.AddGrade('D');
             }
+            else if (grade == "E" || grade == "e")
+            {
+                this.AddGrade('E');
+            }
             else if (grade == "F" || grade == "f")
             {
                 this.AddGrade('F');
             }
             else
             {
-                Console.WriteLine("Błędna wartość - tekst zamiast cyfry\n");
+                throw new Exception("Błędna wartość - wybierz \"A,B,C,D,E,F, 0-100\" lub \"Q\" aby wyjść\n");
             }
         }
         public void AddGrade(double grade)
@@ -97,12 +103,16 @@ namespace challengeapp
                 case 'e':
                     this.AddGrade(20);
                     break;
-                default:
-                    Console.WriteLine("Podani niewłaściwą literę");
+                case 'F':
+                case 'f':
+                    this.AddGrade(0);
                     break;
+                default:
+                    throw new Exception("Wprowadzono niewłaściwą literę - \"A,B,C,D,E,F\" lub \"Q\" aby wyjść");
+                    //Console.WriteLine("Podani niewłaściwą literę");
+                    //break; throw powoduje wyskoczenie tak jak break wszystko co poniżej już się nie wykona
             }
         }
-
         public Ststistics GetStstisticsForEch()
         {
             var statistics = new Ststistics();
@@ -126,7 +136,6 @@ namespace challengeapp
             else
             {
                 statistics.Average /= this.grades.Count;
-
             }
             switch (statistics.Average)
             {
@@ -142,11 +151,26 @@ namespace challengeapp
                 case var average when average >= 40:
                     statistics.AverageLetter = 'D';
                     break;
-                default:
+                case var average when average >= 20:
                     statistics.AverageLetter = 'E';
+                    break;
+                default:
+                    statistics.AverageLetter = 'F';
                     break;
             }
             return statistics;
         }
+
+        public Ststistics RememberTheCollectedPoints()
+        {
+            var statistics = new Ststistics();
+
+            foreach (var grade in this.grades)
+            {
+                statistics.PointsCollected += grade + ",";
+            }
+            return statistics;
+        }
+
     }
 }
