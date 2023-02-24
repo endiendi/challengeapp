@@ -3,9 +3,6 @@ namespace challengeapp
 {
     public class Employee
     {   
-        private readonly char sex='M'; //przypisywane tylko w dwuch miejscacj tu i jeszcze w konstruktoże
-        private const char sex1 = 'M';
-
         private List<float> grades = new List<float>();
 
 
@@ -13,7 +10,6 @@ namespace challengeapp
         {
             this.Name = name;
             this.Surname = surname;
-            this.sex = 'K';
         }
 
         public string Name { get; private set; }
@@ -109,8 +105,6 @@ namespace challengeapp
                     break;
                 default:
                     throw new Exception("Wprowadzono niewłaściwą literę - \"A,B,C,D,E,F\" lub \"Q\" aby wyjść");
-                    //Console.WriteLine("Podani niewłaściwą literę");
-                    //break; throw powoduje wyskoczenie tak jak break wszystko co poniżej już się nie wykona
             }
         }
         public Ststistics GetStstisticsForEch()

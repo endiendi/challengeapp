@@ -11,24 +11,6 @@ Console.WriteLine(initialMessage);
 
 var employee = new Employee("Adam", "Kowalski");
 
-
-//try  //wyjątek
-//{
-//    Employee emp = null;
-//    var name =emp.Surname;
-//}
-////catch (Exception) //
-////{
-////    Console.WriteLine("Takiej sytuacji nie powinno być");// komunikat wyjątku
-//catch (Exception exception) //ze zmienną komunikatu wyjątku
-//{
-//    Console.WriteLine(exception.Message);// komunikat wyjątku zdefiniowany w plikacz wyjątku
-//}
-//finally
-//{
-//    Console.WriteLine("Fainally here"); //wyświetla komunikat końcowy wyjątku niezależnie czy wystąpi
-//}
-
 while (true)
 {
     Console.WriteLine("Koniec wprowadzania wciśnij q");
@@ -40,7 +22,6 @@ while (true)
     grades.Add(imput);
     if (imput == "q" || imput == "Q")
     {
-        //        System.Environment.Exit(0); wyjście z aplikacji
         break;
     }
     Console.WriteLine(initialMessage);

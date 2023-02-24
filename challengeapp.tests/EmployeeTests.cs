@@ -3,6 +3,21 @@
     public class EmployeeTests
     {
         [Test]
+        public void WhenInvokedToFetchStatisticsForAnEmptyValueIt_ShouldReturnAnAverageOfZero()
+        {
+            //arrange
+            var employee = new Employee("Adam", "Kowalski");
+            employee.AddGrade("");
+
+            //act
+            var statistics = employee.GetStstisticsForEch();
+
+            //assert
+            Assert.AreEqual(0, statistics.Average);
+
+        }
+
+        [Test]
         public void WhenGetStatisticsCalled_ShouldReturnCorrectMax()
         {
             //arrange
@@ -19,8 +34,25 @@
 
             //assert
             Assert.AreEqual(6, statistics.Max);
-        }
 
+        }
+        [Test]
+        public void WhenYouCallGetPointsCollectedForThey_ShouldReturnPointsCollected()
+        {
+            var employee = new Employee("Adam", "Kowalski");
+            //arrange
+            employee.AddGrade(1);
+            employee.AddGrade(2);
+            employee.AddGrade('C');
+            employee.AddGrade(4);
+            employee.AddGrade('E');
+
+            //act
+            var statistics = employee.RememberTheCollectedPoints();
+
+            //assert
+            Assert.AreEqual("1,2,60,4,20,", statistics.PointsCollected);
+        }
         [Test]
         public void WhenGetStatisticsiscalledit_shouldreturntheaverageoftheliteralvalues()
         {
