@@ -9,17 +9,17 @@ const string initialMessage =
 
 Console.WriteLine(initialMessage);
 
-var employee = new Employee("Adam", "Kowalski");
+var employee = new Employee("Adam", "Kowalski",'G',25);
 
 while (true)
 {
-    Console.WriteLine("Koniec wprowadzania wciśnij q");
+    Console.WriteLine("Koniec wprowadzania wciśnij Q");
     Console.WriteLine("Podaj ocenę pracownika: ");
 
     var imput = Console.ReadLine();
     Console.Clear();
-    string pointsCollected = "";
     grades.Add(imput);
+
     if (imput == "q" || imput == "Q")
     {
         break;
@@ -33,21 +33,21 @@ while (true)
     {
         Console.WriteLine($"Błąd wyjątku \n{ex.Message}");
     }
-    
-    var statistics2 = employee.RememberTheCollectedPoints();
-    Console.Write($"Zebrane punkty: {statistics2.PointsCollected}\n");
+
+    var statistics1 = employee.RememberTheCollectedPoints();
+    Console.Write($"Zebrane punkty: {statistics1.PointsCollected}\n");
     Console.WriteLine("");
 
 }
 Console.Clear();
 
-var statistics1 = employee.GetStstisticsForEch();
+var statistics = employee.GetStstisticsForEch();
 Console.WriteLine(initialMessage);
 
-Console.WriteLine($"Average: {statistics1.Average:N2}");
-Console.WriteLine($"Średnia punktacja wyrażona literą - {statistics1.AverageLetter}");
-Console.WriteLine($"Max: {statistics1.Max}");
-Console.WriteLine($"Min: {statistics1.Min}\n");
+Console.WriteLine($"Average: {statistics.Average:N2}");
+Console.WriteLine($"Średnia punktacja wyrażona literą - {statistics.AverageLetter}");
+Console.WriteLine($"Max: {statistics.Max}");
+Console.WriteLine($"Min: {statistics.Min}\n");
 var imput2 = Console.ReadLine();
 Console.Clear();
 Console.WriteLine("\n\tKoniec\n");
