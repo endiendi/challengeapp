@@ -1,28 +1,33 @@
 ﻿namespace challengeapp
 {
-    public class Employee : Person
+    public class Employee : IEmployee
     {
         private List<float> grades = new List<float>();
-        private char genders;
+        //private char genders;
 
         public Employee(string name, string surname, char gender, int age)
-            : base(name, surname, gender, age)
         {
-
+            this.Name = name;
+            this.Surname = surname;
+            this.Gender = gender;
+            this.Age = age;
         }
-
-            public void AddGrade(float grade)
+        public string Name { get; private set; }
+        public string Surname { get; private set; }
+        public char Gender { get; private set; }
+        public int Age { get; private set; }
+        public void AddGrade(float grade)
+        {
+            if (grade >= 0 && grade <= 100)
             {
-                if (grade >= 0 && grade <= 100)
-                {
-                    this.grades.Add(grade);
-                }
-                else
-                {
-                    throw new Exception($"Punkty poza zakresem, prawidłowy zakres to 0-100\n");
-                }
+                this.grades.Add(grade);
             }
-            public void AddGrade(string grade)
+            else
+            {
+                throw new Exception($"Punkty poza zakresem, prawidłowy zakres to 0-100\n");
+            }
+        }
+        public void AddGrade(string grade)
             {
                 if (float.TryParse(grade, out float result))
                 {
@@ -57,57 +62,57 @@
                     throw new Exception("Błędna wartość - wybierz \"A,B,C,D,E,F, 0-100\" lub \"Q\" aby wyjść\n");
                 }
             }
-            public void AddGrade(double grade)
-            {
-                this.AddGrade((float)grade);
-            }
-            public void AddGrade(long grade)
-            {
-                this.AddGrade((float)grade);
-            }
-            public void AddGrade(decimal grade)
-            {
-                this.AddGrade((float)grade);
-            }
+        public void AddGrade(double grade)
+        {
+            this.AddGrade((float)grade);
+        }
+        public void AddGrade(long grade)
+        {
+            this.AddGrade((float)grade);
+        }
+        public void AddGrade(decimal grade)
+        {
+            this.AddGrade((float)grade);
+        }
 
-            public void AddGrade(char grade)
+        public void AddGrade(char grade)
+        {
+            switch (grade)
             {
-                switch (grade)
-                {
-                    case 'A':
-                    case 'a':
-                        this.AddGrade(100);
-                        break;
-                    case 'B':
-                    case 'b':
-                        this.AddGrade(80);
-                        break;
-                    case 'C':
-                    case 'c':
-                        this.AddGrade(60);
-                        break;
-                    case 'D':
-                    case 'd':
-                        this.AddGrade(40);
-                        break;
-                    case 'E':
-                    case 'e':
-                        this.AddGrade(20);
-                        break;
-                    case 'F':
-                    case 'f':
-                        this.AddGrade(0);
-                        break;
-                    default:
-                        throw new Exception("Wprowadzono niewłaściwą literę - \"A,B,C,D,E,F\" lub \"Q\" aby wyjść");
-                }
+                case 'A':
+                case 'a':
+                    this.AddGrade(100);
+                    break;
+                case 'B':
+                case 'b':
+                    this.AddGrade(80);
+                    break;
+                case 'C':
+                case 'c':
+                    this.AddGrade(60);
+                    break;
+                case 'D':
+                case 'd':
+                    this.AddGrade(40);
+                    break;
+                case 'E':
+                case 'e':
+                    this.AddGrade(20);
+                    break;
+                case 'F':
+                case 'f':
+                    this.AddGrade(0);
+                    break;
+                default:
+                    throw new Exception("Wprowadzono niewłaściwą literę - \"A,B,C,D,E,F\" lub \"Q\" aby wyjść");
             }
-            public Ststistics GetStstisticsForEch()
+        }
+        public Ststistics GetStstistics()
             {
                 var statistics = new Ststistics();
                 statistics.Average = 0;
-                statistics.Max = float.MinValue;
-                statistics.Min = float.MaxValue;
+            statistics.Max = float.MinValue;
+            statistics.Min = float.MaxValue;
 
                 foreach (var grade in this.grades)
                 {
