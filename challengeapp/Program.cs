@@ -14,7 +14,9 @@ const string initialMessageS =
 
 Console.WriteLine(initialMessageE);
 
-var employee = new Employee("Adam", "Kowalski", 'G', 25);
+var employee = new EmployeeInFile("Adam", "Kowalski");
+//employee.SayHello(); //Wywołanie merody virtualnej
+//employee.AddGrade(0.5f);
 
 while (true)
 {
