@@ -13,5 +13,6 @@
         void AddGrade(decimal grade);
         void AddGrade(char grade);
         Ststistics GetStstistics();
+        Ststistics RememberTheCollectedPoints();
     }
 }

@@ -1,20 +1,17 @@
-﻿using System.Xml.Linq;
-
-namespace challengeapp
+﻿namespace challengeapp
 {
     public class EmployeeInFile : EmployeeBase
     {
-        public string fileName = "grades.txt";
+        private string fileName = "grades.txt";  
 
         public EmployeeInFile(string name, string surname)
             : base(name, surname)
         {
-            fileName = $"{Name} {Surname}.txt";
+            fileName = $"{Name} {Surname}.txt"; 
         }
 
         public override void AddGrade(float grade)
         {
-
             {
                 if (grade >= 0 && grade <= 100)
                 {
@@ -29,31 +26,33 @@ namespace challengeapp
 
         public override void AddGrade(string grade)
         {
+            string stringTest = grade.ToUpper();
+
             if (float.TryParse(grade, out float result))
             {
                 this.AddGrade(result);
             }
-            else if (grade == "A" || grade == "a")
+            else if (stringTest == "A")
             {
                 this.AddGrade('A');
             }
-            else if (grade == "B" || grade == "b")
+            else if (stringTest == "B")
             {
                 this.AddGrade('B');
             }
-            else if (grade == "C" || grade == "c")
+            else if (stringTest == "C")
             {
                 this.AddGrade('C');
             }
-            else if (grade == "D" || grade == "d")
+            else if (stringTest == "D")
             {
                 this.AddGrade('D');
             }
-            else if (grade == "E" || grade == "e")
+            else if (stringTest == "E")
             {
                 this.AddGrade('E');
             }
-            else if (grade == "F" || grade == "f")
+            else if (stringTest == "F" )
             {
                 this.AddGrade('F');
             }

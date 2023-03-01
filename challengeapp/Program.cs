@@ -15,14 +15,35 @@ const string initialMessageS =
 Console.WriteLine(initialMessageE);
 
 var employee = new EmployeeInFile("Adam", "Kowalski");
+var employee1 = new EmployeeInMemory("Adam", "Kowalski");
+
+//var supervision = new Supervision("Wojtek", "Michałowski", 'G', 25);
+//var statistics4 = supervision.RememberTheCollectedPoints();
+//var statistics1 = employee.RememberTheCollectedPoints();
+
 //employee.SayHello(); //Wywołanie merody virtualnej
 //employee.AddGrade(0.5f);
+employee1.GradeAdded += Employee1GradeAdded;
 
+employee1.AllRatings += Employee1AllRatings;
+
+void Employee1AllRatings(object sender, EventArgs args, string punktyAll)
+{
+    $"Zebrane punkty: {punktyAll}\n"
+}
+
+void Employee1GradeAdded(object sender, EventArgs args, float punkty)
+{
+    Console.WriteLine($"Dodano nową ocenę {punkty}");
+}
+
+
+//employee1.AddGrade(1.5f);
 while (true)
 {
     Console.WriteLine("Koniec wprowadzania wciśnij Q");
     Console.WriteLine("Podaj ocenę pracownika: ");
-
+    //employee1.ToString();
     var imput = Console.ReadLine();
     Console.Clear();
     if (imput == "q" || imput == "Q")
@@ -33,6 +54,7 @@ while (true)
     try
     {
         employee.AddGrade(imput);
+        employee1.AddGrade(imput);
     }
     catch (Exception ex)
     {

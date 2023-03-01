@@ -1,9 +1,11 @@
 ﻿namespace challengeapp
 {
-    public class Supervision : IEmployee
+    public class Employeebat
     {
         private List<float> grades = new List<float>();
-        public Supervision(string name, string surname, char gender, int age)
+        //private char genders;
+
+        public Employeebat(string name, string surname, char gender, int age)
         {
             this.Name = name;
             this.Surname = surname;
@@ -14,63 +16,50 @@
         public string Surname { get; private set; }
         public char Gender { get; private set; }
         public int Age { get; private set; }
-
-
         public void AddGrade(float grade)
         {
-            if (grade >= -5 && grade <= 105)
+            if (grade >= 0 && grade <= 100)
             {
                 this.grades.Add(grade);
             }
             else
             {
-                throw new Exception($"Punkty poza zakresem, prawidłowy zakres to 0-105\n");
+                throw new Exception($"Punkty poza zakresem, prawidłowy zakres to 0-100\n");
             }
         }
         public void AddGrade(string grade)
         {
-            int halfPoints = 0;
-            string polarization = "";
-
-            grade = grade.ToUpper();
-            if (grade.Contains("+"))
+            if (float.TryParse(grade, out float result))
             {
-                halfPoints = 5;
-                polarization += "+";
+                this.AddGrade(result);
             }
-            else if (grade.Contains("-"))
+            else if (grade == "A" || grade == "a")
             {
-                halfPoints = -5;
-                polarization += "-";
+                this.AddGrade('A');
             }
-
-            if (grade == $"{ polarization}6" || grade == $"6{ polarization}" || grade == $"A{ polarization}" || grade == $"{polarization}A")
+            else if (grade == "B" || grade == "b")
             {
-                this.AddGrade(100 + halfPoints);
+                this.AddGrade('B');
             }
-            else if (grade == $"{polarization}5" || grade == $"5{ polarization}" || grade == $"B{ polarization}" || grade == $"{polarization}B")
+            else if (grade == "C" || grade == "c")
             {
-                this.AddGrade(80 + halfPoints);
+                this.AddGrade('C');
             }
-            else if (grade == $"{polarization}4" || grade == $"4{ polarization}" || grade == $"C{ polarization}" || grade == $"{polarization}C")
+            else if (grade == "D" || grade == "d")
             {
-                this.AddGrade(60 + halfPoints);
+                this.AddGrade('D');
             }
-            else if (grade == $"{polarization}3" || grade == $"3{ polarization}" || grade == $"D{ polarization}" || grade == $"{polarization}D")
+            else if (grade == "E" || grade == "e")
             {
-                this.AddGrade(40 + halfPoints);
+                this.AddGrade('E');
             }
-            else if (grade == $"{polarization}2" || grade == $"2{ polarization}" || grade == $"E{ polarization}" || grade == $"{polarization}E")
+            else if (grade == "F" || grade == "f")
             {
-                this.AddGrade(20 + halfPoints);
-            }
-            else if (grade == $"{polarization}1" || grade == $"1{ polarization}" || grade == $"F{ polarization}" || grade == $"{polarization}F")
-            {
-                this.AddGrade(0 + halfPoints);
+                this.AddGrade('F');
             }
             else
             {
-                throw new Exception("Błędna wartość - wybierz \"A,B,C,D,E,F, 6-1\" lub \"Q\" aby wyjść\n");
+                throw new Exception("Błędna wartość - wybierz \"A,B,C,D,E,F, 0-100\" lub \"Q\" aby wyjść\n");
             }
         }
         public void AddGrade(double grade)
@@ -115,7 +104,7 @@
                     this.AddGrade(0);
                     break;
                 default:
-                    throw new Exception(" char Wprowadzono niewłaściwą literę - \"A,B,C,D,E,F\" lub \"Q\" aby wyjść");
+                    throw new Exception("Wprowadzono niewłaściwą literę - \"A,B,C,D,E,F\" lub \"Q\" aby wyjść");
             }
         }
         public Ststistics GetStstistics()
@@ -127,6 +116,7 @@
 
             foreach (var grade in this.grades)
             {
+
                 statistics.Max = Math.Max(statistics.Max, grade);
                 statistics.Min = Math.Min(statistics.Min, grade);
                 statistics.Average += grade;
@@ -164,6 +154,7 @@
             }
             return statistics;
         }
+
         public Ststistics RememberTheCollectedPoints()
         {
             var statistics = new Ststistics();
@@ -177,4 +168,3 @@
 
     }
 }
-

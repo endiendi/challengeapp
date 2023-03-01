@@ -3,13 +3,44 @@
     internal class EmployeeInMemory : EmployeeBase
     {
         private List<float> grades = new List<float>();
+
+        public delegate void GradeAddedDelegate(object sender, EventArgs args, float punkty);
+
+        public event GradeAddedDelegate GradeAdded;
+
+        public delegate void AllRatingsDelegate(object sender, EventArgs args, string punkty);
+
+        public event AllRatingsDelegate AllRatings;
         public EmployeeInMemory(string name, string surname)
             : base(name, surname)
         {
             this.Name = name;
             this.Surname = surname;
+
+            //WriteMessage del;
+            //del = WritrMessageInConsole;
+            //del += WritrMessageInConsole2;
+            //del("Mój tekst");
+            //del -= WritrMessageInConsole;
+            //del("Mój tekst 2");
+            //var result1 = del("Mój tekst");
+            //var result2 = del = ReturnMessagr;
+            //WritrMessageInConsole("Mój tekst1");
+
         }
-        
+        private void WritrMessageInConsole(string message)
+        {
+            Console.WriteLine(message);
+        }
+        private void WritrMessageInConsole2(string message)
+        {
+            Console.WriteLine(message.ToUpper());
+        }
+
+        private string ReturnMessagr(string message)
+        {
+            return message;
+        }
         public string Name { get; private set; }
         public string Surname { get; private set; }
         public char Gender { get; private set; }
@@ -21,6 +52,10 @@
             if (grade >= 0 && grade <= 100)
             {
                 this.grades.Add(grade);
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, EventArgs.Empty, grade);
+                }
             }
             else
             {
@@ -35,31 +70,33 @@
         }
         public override void AddGrade(string grade)
         {
+            string stringTest = grade.ToUpper();
+
             if (float.TryParse(grade, out float result))
             {
                 this.AddGrade(result);
             }
-            else if (grade == "A" || grade == "a")
+            else if (stringTest == "A")
             {
                 this.AddGrade('A');
             }
-            else if (grade == "B" || grade == "b")
+            else if (stringTest == "B")
             {
                 this.AddGrade('B');
             }
-            else if (grade == "C" || grade == "c")
+            else if (stringTest == "C")
             {
                 this.AddGrade('C');
             }
-            else if (grade == "D" || grade == "d")
+            else if (stringTest == "D")
             {
                 this.AddGrade('D');
             }
-            else if (grade == "E" || grade == "e")
+            else if (stringTest == "E")
             {
                 this.AddGrade('E');
             }
-            else if (grade == "F" || grade == "f")
+            else if (stringTest == "F")
             {
                 this.AddGrade('F');
             }
