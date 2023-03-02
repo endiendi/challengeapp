@@ -1,4 +1,5 @@
 ﻿using challengeapp;
+using static challengeapp.EmployeeBase;
 
 List<string> grades = new List<string>();
 const string initialMessageE =
@@ -14,36 +15,24 @@ const string initialMessageS =
 
 Console.WriteLine(initialMessageE);
 
-var employee = new EmployeeInFile("Adam", "Kowalski");
 var employee1 = new EmployeeInMemory("Adam", "Kowalski");
+var employee = new EmployeeInFile("Adam", "Kowalski");
 
-//var supervision = new Supervision("Wojtek", "Michałowski", 'G', 25);
-//var statistics4 = supervision.RememberTheCollectedPoints();
-//var statistics1 = employee.RememberTheCollectedPoints();
+employee1.GradeAdded += EmployeeGradeAdded;
 
-//employee.SayHello(); //Wywołanie merody virtualnej
-//employee.AddGrade(0.5f);
-employee1.GradeAdded += Employee1GradeAdded;
-
-employee1.AllRatings += Employee1AllRatings;
-
-void Employee1AllRatings(object sender, EventArgs args, string punktyAll)
+void EmployeeGradeAdded(object sender, EventArgs args, float punkty)
 {
-    $"Zebrane punkty: {punktyAll}\n"
+    Console.Write($"Zapisano punkty \"Event\" {punkty} \n");
 }
-
-void Employee1GradeAdded(object sender, EventArgs args, float punkty)
+void EmployeeGradeAddedS(object sender, EventArgs args, float punkty)
 {
-    Console.WriteLine($"Dodano nową ocenę {punkty}");
+    Console.Write($"Zapisano punkty \"Event\" {punkty} \n");
 }
-
-
-//employee1.AddGrade(1.5f);
 while (true)
 {
+    
     Console.WriteLine("Koniec wprowadzania wciśnij Q");
     Console.WriteLine("Podaj ocenę pracownika: ");
-    //employee1.ToString();
     var imput = Console.ReadLine();
     Console.Clear();
     if (imput == "q" || imput == "Q")
@@ -60,12 +49,10 @@ while (true)
     {
         Console.WriteLine($"Błąd wyjątku \n{ex.Message}");
     }
-    var statistics1 = employee.RememberTheCollectedPoints();
-    Console.Write($"Zebrane punkty: {statistics1.PointsCollected}\n");
 }
-var supervision = new Supervision("Wojtek", "Michałowski", 'G', 25);
+var supervision = new SupervisorInMemory("Wojtek", "Michałowski", 'G', 25);
+supervision.GradeAdded += EmployeeGradeAddedS;
 Console.WriteLine(initialMessageS);
-
 while (true)
 {
     Console.WriteLine("Koniec wprowadzania wciśnij Q");
@@ -86,26 +73,39 @@ while (true)
     {
         Console.WriteLine($"Błąd wyjątku \n{ex.Message}");
     }
-    var statistics4 = supervision.RememberTheCollectedPoints();
-    Console.Write($"Zebrane punkty: {statistics4.PointsCollected}\n");
 }
 
 Console.Clear();
-
-var statistics = employee.GetStstistics();
-Console.WriteLine($"Podsumowanie dla pracownika {employee.Name} {employee.Surname}\n");
-Console.WriteLine($"Average: {statistics.Average:N2}");
-Console.WriteLine($"Średnia punktacja wyrażona literą - {statistics.AverageLetter}");
-Console.WriteLine($"Max: {statistics.Max}");
-Console.WriteLine($"Min: {statistics.Min}\n");
-
-
+var statistics = employee1.GetStstistics();
+if (statistics.Count != 0)
+{
+    Console.WriteLine($"Podsumowanie dla pracownika {employee1.Name} {employee1.Surname}\n");
+    Console.WriteLine($"Liczna uzuskanych ocen {statistics.Count}. Suma ocen {statistics.Sum}.");
+    Console.WriteLine($"Średnia punktacja wyrażona literą - {statistics.AverageLetter}");
+    Console.WriteLine($"Average: {statistics.Average:N2}");
+    Console.WriteLine($"Max: {statistics.Max}");
+    Console.WriteLine($"Min: {statistics.Min}\n");
+}
+else
+{
+    Console.WriteLine($"Podsumowanie dla pracownika {employee1.Name} {employee1.Surname}\n");
+    Console.WriteLine("Brak danych\n");
+}
 var statistics3 = supervision.GetStstistics();
-Console.WriteLine($"Podsumowanie dla kierownika {supervision.Name} {supervision.Surname}\n");
-Console.WriteLine($"Average: {statistics3.Average:N2}");
-Console.WriteLine($"Średnia punktacja wyrażona literą - {statistics3.AverageLetter}");
-Console.WriteLine($"Max: {statistics3.Max}");
-Console.WriteLine($"Min: {statistics3.Min}\n");
+if (statistics3.Count != 0)
+{
+    Console.WriteLine($"Podsumowanie dla kierownika {supervision.Name} {supervision.Surname}\n");
+    Console.WriteLine($"Liczna uzuskanych ocen {statistics3.Count}. Suma ocen {statistics3.Sum}.");
+    Console.WriteLine($"Średnia punktacja wyrażona literą - {statistics3.AverageLetter}");
+    Console.WriteLine($"Average: {statistics3.Average:N2}");
+    Console.WriteLine($"Max: {statistics3.Max}");
+    Console.WriteLine($"Min: {statistics3.Min}\n");
+}
+else
+{
+    Console.WriteLine($"Podsumowanie dla kierownika {supervision.Name} {supervision.Surname}\n");
+    Console.WriteLine("Brak danych\n");
+}
 var imput3 = Console.ReadLine();
 Console.Clear();
 Console.WriteLine("\n\tKoniec\n");

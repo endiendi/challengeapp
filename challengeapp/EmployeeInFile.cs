@@ -2,14 +2,16 @@
 {
     public class EmployeeInFile : EmployeeBase
     {
-        private string fileName = "grades.txt";  
+        private string fileName = "grades.txt";
 
+        public override event GradeAddedDelegate GradeAdded;
+
+        private List<float> grades = new List<float>();
         public EmployeeInFile(string name, string surname)
             : base(name, surname)
         {
-            fileName = $"{Name} {Surname}.txt"; 
+            fileName = $"{Name} {Surname}.txt";
         }
-
         public override void AddGrade(float grade)
         {
             {
@@ -23,36 +25,35 @@
                 }
             }
         }
-
         public override void AddGrade(string grade)
         {
-            string stringTest = grade.ToUpper();
+            string gradeToUpper = grade.ToUpper();
 
-            if (float.TryParse(grade, out float result))
+            if (float.TryParse(gradeToUpper, out float result))
             {
                 this.AddGrade(result);
             }
-            else if (stringTest == "A")
+            else if (gradeToUpper == "A")
             {
                 this.AddGrade('A');
             }
-            else if (stringTest == "B")
+            else if (gradeToUpper == "B")
             {
                 this.AddGrade('B');
             }
-            else if (stringTest == "C")
+            else if (gradeToUpper == "C")
             {
                 this.AddGrade('C');
             }
-            else if (stringTest == "D")
+            else if (gradeToUpper == "D")
             {
                 this.AddGrade('D');
             }
-            else if (stringTest == "E")
+            else if (gradeToUpper == "E")
             {
                 this.AddGrade('E');
             }
-            else if (stringTest == "F" )
+            else if (gradeToUpper == "F")
             {
                 this.AddGrade('F');
             }
@@ -61,7 +62,6 @@
                 throw new Exception("Błędna wartość - wybierz \"A,B,C,D,E,F, 0-100\" lub \"Q\" aby wyjść\n");
             }
         }
-
         public override void AddGrade(double grade)
         {
             SaveGradeFile((float)grade, fileName);
@@ -76,10 +76,8 @@
         {
             SaveGradeFile((float)grade, fileName);
         }
-
         public override void AddGrade(char grade)
         {
-
             switch (grade)
             {
                 case 'A':
@@ -110,45 +108,33 @@
                     throw new Exception("Wprowadzono niewłaściwą literę - \"A,B,C,D,E,F\" lub \"Q\" aby wyjść");
             }
         }
-
         public override Ststistics GetStstistics()
         {
-            var gradesFromFile = this.ReadGradesFromFile();
+            var gradesFromFile = this.ReadGradesFromFile(fileName);
             var result = this.CountStatistics(gradesFromFile);
-
             return result;
         }
-        private Ststistics CountReadGradesFromFile(List<float> grades)
-        {
-            var statistics = new Ststistics();
-            foreach (var grade in grades)
-            {
-                statistics.PointsCollected += grade + ",";
-            }
-            return statistics;
-        }
-        public override Ststistics RememberTheCollectedPoints()
-        {
-            var gradesFromFile = this.ReadGradesFromFile();
-            var result = this.CountReadGradesFromFile(gradesFromFile);
-            return result;
-        }
-
-
-        private List<float> ReadGradesFromFile()
+        private List<float> ReadGradesFromFile(string fileNameS)
         {
             var grades = new List<float>();
-            if (File.Exists(fileName))
+            if (File.Exists(fileNameS))
             {
-                using (var reade = File.OpenText(fileName))
+                using (var reade = File.OpenText(fileNameS))
                 {
                     var line = reade.ReadLine();
                     while (line != null)
                     {
-                        var namber = float.Parse(line);
-                        grades.Add(namber);
-                        line = reade.ReadLine();
-
+                        try
+                        {
+                            var namber = float.Parse(line);
+                            grades.Add(namber);
+                            line = reade.ReadLine();
+                        }
+                        catch
+                        {
+                            Console.WriteLine($"Plik {fileNameS} jest uszkodzony, usuń plik! \n");
+                            break;
+                        }
                     }
                 }
             }
@@ -157,47 +143,12 @@
         private Ststistics CountStatistics(List<float> grades)
         {
             var statistics = new Ststistics();
-            statistics.Average = 0;
-            statistics.Max = float.MinValue;
-            statistics.Min = float.MaxValue;
+            {
+                foreach (var gradr in this.grades)
+                {
+                    statistics.AddGrade(gradr);
 
-            foreach (var grade in grades)
-            {
-
-                statistics.Max = Math.Max(statistics.Max, grade);
-                statistics.Min = Math.Min(statistics.Min, grade);
-                statistics.Average += grade;
-            }
-            if (grades.Count == 0)
-            {
-                statistics.Max = 0;
-                statistics.Min = 0;
-                statistics.Average = 0;
-            }
-            else
-            {
-                statistics.Average /= grades.Count;
-            }
-            switch (statistics.Average)
-            {
-                case var average when average >= 100:
-                    statistics.AverageLetter = 'A';
-                    break;
-                case var average when average >= 80:
-                    statistics.AverageLetter = 'B';
-                    break;
-                case var average when average >= 60:
-                    statistics.AverageLetter = 'C';
-                    break;
-                case var average when average >= 40:
-                    statistics.AverageLetter = 'D';
-                    break;
-                case var average when average >= 20:
-                    statistics.AverageLetter = 'E';
-                    break;
-                default:
-                    statistics.AverageLetter = 'F';
-                    break;
+                }
             }
             return statistics;
         }
